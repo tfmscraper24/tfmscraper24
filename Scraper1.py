@@ -1,7 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 
-# URL del sitio web que vamos a raspar
+# URL del sitio web que vamos a scrapear
 url = "https://breachforums.st/Forum-Sellers-Place?sortby=started&order=desc&datecut=9999&prefix=1"
 
 # Realizamos una solicitud HTTP GET al sitio web
