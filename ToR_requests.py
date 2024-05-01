@@ -8,7 +8,7 @@ def get_new_tor_ip():
             'SocksPort': '9100',
             'DataDirectory': '/tmp/tor',
             'ControlPort': '9151'
-},
+        },
         init_msg_handler=lambda _: print("Tor init message: " + _)
     ) as controller:
         controller.authenticate()
@@ -27,5 +27,5 @@ def tor_requests(url, max_requests):
 
 if __name__ == '__main__':
     url = 'https://httpbin.org/ip'
-max_requests = 20
-tor_requests(url, max_requests)
+    max_requests = 20
+    tor_requests(url, max_requests)
