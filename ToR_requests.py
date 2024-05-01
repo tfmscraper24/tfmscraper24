@@ -9,8 +9,8 @@ def get_new_tor_ip():
             'DataDirectory': '/tmp/tor',
             'ControlPort': '9151'
 },
-        init_msg_handler=print
-) as controller:
+        init_msg_handler=lambda _: print("Tor init message: " + _)
+    ) as controller:
         controller.authenticate()
         controller.signal(stem.signal.NEWNYM)
         return requests.get('https://httpbin.org/ip', proxies={'http': 'socks5://localhost:9100', 'https': 'socks5://localhost:9100'}).json()['origin']
@@ -22,10 +22,10 @@ def tor_requests(url, max_requests):
             print(f"Cambiando IP - Petición {i}")
             ip = get_new_tor_ip()
             print(f"Nueva IP: {ip}")
-        print(f"Peticion {i}: {requests.get(url, proxies={'http': 'socks5://localhost:9100', 'https': 'socks5://localhost:9100'}).json()['origin']}")
+        print(f"Petición {i}: {requests.get(url, proxies={'http': 'socks5://localhost:9100', 'https': 'socks5://localhost:9100'}).json()['origin']}")
         time.sleep(2)
 
 if __name__ == '__main__':
     url = 'https://httpbin.org/ip'
-max_requests = 4
+max_requests = 20
 tor_requests(url, max_requests)
